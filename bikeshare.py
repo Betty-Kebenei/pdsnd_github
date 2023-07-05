@@ -108,7 +108,13 @@ def load_data(city, month, day):
     return df
 
 def most_common(value_count):
-    """Returns the most common item in the value_count"""
+    """Returns the most common item in the value_count
+
+    Args:
+        (dic) value_count - a dictionary of what is to be counted
+    Returns:
+        common - the most common item 
+    """
     common_no = 0
     common = ''
     for i, value in value_count.items():
