@@ -8,6 +8,30 @@ CITY_DATA = { 'chicago': 'chicago.csv',
 
 months = ['all', 'january', 'february', 'march', 'april', 'may', 'june']
 
+INPUT_DATA = {
+    'input city': "Which city's data would you want to explore? \n\n "
+        "1. Chicago \n "
+        "2. New York \n "
+        "3. Washington \n",
+    'input month': "Which month's data would you want to explore? \n\n "
+        "0. All Months \n"
+        "1. January \n "
+        "2. February \n "
+        "3. March \n"
+        "4. April \n"
+        "5. May \n"
+        "6. June \n",
+    'input day': "Which day's data would you want to explore? \n\n"
+        "0. All Days \n"
+        "1. Monday \n"
+        "2. Tuesday \n"
+        "3. Wednesday \n"
+        "4. Thursday \n"
+        "5. Friday \n"
+        "6. Saturday \n"
+        "7. Sunday \n"
+}
+
 def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
@@ -18,67 +42,71 @@ def get_filters():
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
     print('Hello! Let\'s explore some US bikeshare data!')
+
     # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
 
     cities = ['chicago', 'new york city', 'washington']
-    city_no = input(
-        "which city's data would you want to explore? \n\n "
-        "1. Chicago \n "
-        "2. New York \n "
-        "3. Washington \n")
-    while city_no not in ['1','2','3']:
-        city_no = input('Reply with either number 1, 2 or 3 to choose city\n')
 
-    city_no = int(city_no)
+    city_no = get_valid_selected_item(
+        INPUT_DATA['input city'],
+        "Enter the city's no: ",
+        ['1','2','3'],
+        "Reply with either number 1, 2 or 3 to choose city\n"
+    )
+
     city = cities[city_no - 1]
     print("Awesome, let's explore {}'s data \n\n".format(cities[city_no - 1].title()))
 
     # get user input for month (all, january, february, ... , june)
-    print("Which month's data would you want to explore? \n\n "
-        "0. All Months \n"
-        "1. January \n "
-        "2. February \n "
-        "3. March \n"
-        "4. April \n"
-        "5. May \n"
-        "6. June \n"
-        )
 
-    month_no = input("Enter the month's no: ")
+    month_no = get_valid_selected_item(
+        INPUT_DATA['input month'],
+        "Enter the month's no: ",
+        ['0','1','2','3','4','5','6'],
+        "Reply with the month number 0, 1, 2, 3, 4, 5 or 6 \n"
+    )
 
-    while month_no not in ['0','1','2','3','4','5','6']:
-        month_no = input('Reply with the month number 0, 1, 2, 3, 4, 5 or 6 \n')
-
-    month_no = int(month_no)
     month = month_no
     print("You chose {} \n\n".format(months[month_no].title()))
 
     # get user input for day of week (all, monday, tuesday, ... sunday)
 
     days = ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+    
+    day_no = get_valid_selected_item(
+        INPUT_DATA['input day'],
+        "Enter the day's no: ",
+        ['0','1','2','3','4','5','6','7'],
+        "Reply with the day number 0, 1, 2, 3, 4, 5, 6 or 7 \n"
+    )
 
-    print("Which day's data would you want to explore? \n\n"
-        "0. All Days \n"
-        "1. Monday \n"
-        "2. Tuesday \n"
-        "3. Wednesday \n"
-        "4. Thursday \n"
-        "5. Friday \n"
-        "6. Saturday \n"
-        "7. Sunday \n"
-        )
-
-    day_no = input("Enter the day's no: ")
-
-    while day_no not in ['0','1','2','3','4','5','6','7']:
-        day_no = input('Reply with the day number 0, 1, 2, 3, 4, 5, 6 or 7 \n')
-
-    day_no = int(day_no)
     day = days[day_no]
     print("You chose {}".format(days[day_no].title()))
 
     print('-'*40)
     return city, month, day
+
+def get_valid_selected_item(info, prompt_message, options, options_message):
+    """
+    Computes the selected item from user input and validates it
+
+    Args:
+        (str) info - a message of what is expected by the user
+        (str) promt_message - a message to prompt the user to input data
+        (list) options - list to select from
+        (str) options_message - validation message
+
+    Returns:
+        selected - The selected item from the provided list
+    """
+
+    print(info)
+    selected = input(prompt_message)
+    while selected not in options:
+        selected = input(options_message)
+
+    selected = int(selected)
+    return selected
 
 
 def load_data(city, month, day):
