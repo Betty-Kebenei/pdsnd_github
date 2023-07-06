@@ -8,6 +8,30 @@ CITY_DATA = { 'chicago': 'chicago.csv',
 
 months = ['all', 'january', 'february', 'march', 'april', 'may', 'june']
 
+INPUT_DATA = {
+    'input city': "Which city's data would you want to explore? \n\n "
+        "1. Chicago \n "
+        "2. New York \n "
+        "3. Washington \n",
+    'input month': "Which month's data would you want to explore? \n\n "
+        "0. All Months \n"
+        "1. January \n "
+        "2. February \n "
+        "3. March \n"
+        "4. April \n"
+        "5. May \n"
+        "6. June \n",
+    'input day': "Which day's data would you want to explore? \n\n"
+        "0. All Days \n"
+        "1. Monday \n"
+        "2. Tuesday \n"
+        "3. Wednesday \n"
+        "4. Thursday \n"
+        "5. Friday \n"
+        "6. Saturday \n"
+        "7. Sunday \n"
+}
+
 def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
@@ -18,14 +42,11 @@ def get_filters():
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
     print('Hello! Let\'s explore some US bikeshare data!')
+
     # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
 
     cities = ['chicago', 'new york city', 'washington']
-    city_no = input(
-        "which city's data would you want to explore? \n\n "
-        "1. Chicago \n "
-        "2. New York \n "
-        "3. Washington \n")
+    city_no = input(INPUT_DATA['input city'])
     while city_no not in ['1','2','3']:
         city_no = input('Reply with either number 1, 2 or 3 to choose city\n')
 
@@ -34,18 +55,9 @@ def get_filters():
     print("Awesome, let's explore {}'s data \n\n".format(cities[city_no - 1].title()))
 
     # get user input for month (all, january, february, ... , june)
-    print("Which month's data would you want to explore? \n\n "
-        "0. All Months \n"
-        "1. January \n "
-        "2. February \n "
-        "3. March \n"
-        "4. April \n"
-        "5. May \n"
-        "6. June \n"
-        )
 
+    print(INPUT_DATA['input month'])
     month_no = input("Enter the month's no: ")
-
     while month_no not in ['0','1','2','3','4','5','6']:
         month_no = input('Reply with the month number 0, 1, 2, 3, 4, 5 or 6 \n')
 
@@ -56,20 +68,8 @@ def get_filters():
     # get user input for day of week (all, monday, tuesday, ... sunday)
 
     days = ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
-
-    print("Which day's data would you want to explore? \n\n"
-        "0. All Days \n"
-        "1. Monday \n"
-        "2. Tuesday \n"
-        "3. Wednesday \n"
-        "4. Thursday \n"
-        "5. Friday \n"
-        "6. Saturday \n"
-        "7. Sunday \n"
-        )
-
+    print(INPUT_DATA['input day'])
     day_no = input("Enter the day's no: ")
-
     while day_no not in ['0','1','2','3','4','5','6','7']:
         day_no = input('Reply with the day number 0, 1, 2, 3, 4, 5, 6 or 7 \n')
 
