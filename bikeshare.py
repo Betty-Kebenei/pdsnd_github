@@ -46,39 +46,67 @@ def get_filters():
     # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
 
     cities = ['chicago', 'new york city', 'washington']
-    city_no = input(INPUT_DATA['input city'])
-    while city_no not in ['1','2','3']:
-        city_no = input('Reply with either number 1, 2 or 3 to choose city\n')
 
-    city_no = int(city_no)
+    city_no = get_valid_selected_item(
+        INPUT_DATA['input city'],
+        "Enter the city's no: ",
+        ['1','2','3'],
+        "Reply with either number 1, 2 or 3 to choose city\n"
+    )
+
     city = cities[city_no - 1]
     print("Awesome, let's explore {}'s data \n\n".format(cities[city_no - 1].title()))
 
     # get user input for month (all, january, february, ... , june)
 
-    print(INPUT_DATA['input month'])
-    month_no = input("Enter the month's no: ")
-    while month_no not in ['0','1','2','3','4','5','6']:
-        month_no = input('Reply with the month number 0, 1, 2, 3, 4, 5 or 6 \n')
+    month_no = get_valid_selected_item(
+        INPUT_DATA['input month'],
+        "Enter the month's no: ",
+        ['0','1','2','3','4','5','6'],
+        "Reply with the month number 0, 1, 2, 3, 4, 5 or 6 \n"
+    )
 
-    month_no = int(month_no)
     month = month_no
     print("You chose {} \n\n".format(months[month_no].title()))
 
     # get user input for day of week (all, monday, tuesday, ... sunday)
 
     days = ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
-    print(INPUT_DATA['input day'])
-    day_no = input("Enter the day's no: ")
-    while day_no not in ['0','1','2','3','4','5','6','7']:
-        day_no = input('Reply with the day number 0, 1, 2, 3, 4, 5, 6 or 7 \n')
+    
+    day_no = get_valid_selected_item(
+        INPUT_DATA['input day'],
+        "Enter the day's no: ",
+        ['0','1','2','3','4','5','6','7'],
+        "Reply with the day number 0, 1, 2, 3, 4, 5, 6 or 7 \n"
+    )
 
-    day_no = int(day_no)
     day = days[day_no]
     print("You chose {}".format(days[day_no].title()))
 
     print('-'*40)
     return city, month, day
+
+def get_valid_selected_item(info, prompt_message, options, options_message):
+    """
+    Computes the selected item from user input and validates it
+
+    Args:
+        (str) info - a message of what is expected by the user
+        (str) promt_message - a message to prompt the user to input data
+        (list) options - list to select from
+        (str) options_message - validation message
+
+    Returns:
+        selected - The selected item from the provided list
+    """
+
+    print(info)
+    selected = input(prompt_message)
+    while selected not in options:
+        selected = input(options_message)
+
+    selected = int(selected)
+    return selected
 
 
 def load_data(city, month, day):
